@@ -1,0 +1,16 @@
+dataset,baseline,pearson_r,analysis_type
+adamson,lpm_selftrained,0.420227,single_cell
+adamson,lpm_randomGeneEmb,0.230914,single_cell
+adamson,lpm_scgptGeneEmb,0.331719,single_cell
+adamson,lpm_scFoundationGeneEmb,0.280961,single_cell
+adamson,lpm_gearsPertEmb,0.420227,single_cell
+k562,lpm_selftrained,0.258858,single_cell
+k562,lpm_randomGeneEmb,0.068885,single_cell
+k562,lpm_scgptGeneEmb,0.193007,single_cell
+k562,lpm_scFoundationGeneEmb,0.111813,single_cell
+k562,lpm_gearsPertEmb,0.258858,single_cell
+rpe1,lpm_selftrained,0.414442,single_cell
+rpe1,lpm_randomGeneEmb,0.253516,single_cell
+rpe1,lpm_scgptGeneEmb,0.343561,single_cell
+rpe1,lpm_scFoundationGeneEmb,0.270379,single_cell
+rpe1,lpm_gearsPertEmb,0.414442,single_cell

@@ -139,6 +139,8 @@ If you have results from v1:
 - **Resampling Guide**: `docs/resampling.md` - How to use resampling features
 - **LSFT Documentation**: `docs/goal_3_prediction/` - LSFT implementation details
 - **API Reference**: See docstrings in `src/stats/` modules
+- **Methodology Docs**: `methodology/README.md` - Pseudobulk, single-cell, LSFT, LOGO, embeddings, validation
+- **Analysis Docs**: `analysis_docs/README.md` - Single-cell baselines, LSFT, LOGO, GEARS comparisons, cross-resolution
 
 ## Testing
 

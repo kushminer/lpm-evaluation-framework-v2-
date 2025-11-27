@@ -107,20 +107,35 @@ def compute_all_perturbation_similarities(
 def filter_training_perturbations(
     similarities: np.ndarray,
     train_pert_names: List[str],
-    top_pct: float = 0.05,
+    top_pct: Optional[float] = None,
+    k: Optional[int] = None,
 ) -> Tuple[List[str], np.ndarray]:
     """
-    Filter training perturbations to top K% most similar.
+    Filter training perturbations to top K% most similar or top K exact count.
     
     Args:
         similarities: Similarities to all training perturbations (n_train_perts,)
         train_pert_names: List of training perturbation names
         top_pct: Top percentage to keep (e.g., 0.01 for 1%, 0.05 for 5%, 0.10 for 10%)
+        k: Exact number of neighbors to keep (alternative to top_pct)
     
     Returns:
         Tuple of (filtered perturbation names, selected similarities)
+    
+    Note:
+        Either top_pct or k must be provided, but not both.
     """
-    n_select = max(1, int(np.ceil(len(train_pert_names) * top_pct)))
+    if top_pct is not None and k is not None:
+        raise ValueError("Cannot specify both top_pct and k")
+    if top_pct is None and k is None:
+        raise ValueError("Must specify either top_pct or k")
+    
+    if k is not None:
+        # Exact k count
+        n_select = min(k, len(train_pert_names))
+    else:
+        # Percentage-based
+        n_select = max(1, int(np.ceil(len(train_pert_names) * top_pct)))
     
     # Get top-K indices
     top_k_indices = np.argsort(similarities)[-n_select:]
@@ -147,6 +162,10 @@ def retrain_lpm_on_filtered_data(
     A_baseline_cached: Optional[np.ndarray] = None,
     B_train_baseline: Optional[np.ndarray] = None,
     train_pert_indices: Optional[List[int]] = None,
+    # EPIC 3: Noise injection parameters
+    noise_level: float = 0.0,
+    noise_type: str = "none",
+    noise_target: str = "embedding",  # "embedding", "expression", or "both"
 ) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, Optional[np.ndarray]]:
     """
     Retrain LPM model on filtered training data (OPTIMIZED).
@@ -237,6 +256,22 @@ def retrain_lpm_on_filtered_data(
             test_data=test_pert_data,
             test_pert_names=["test"] if test_pert_data is not None else None,
         )
+    
+    # EPIC 3: Inject noise if specified
+    if noise_level > 0 and noise_type != "none":
+        from goal_3_prediction.lsft.noise_injection import inject_noise
+        noise_seed = seed + 42  # Use different seed for noise than for model initialization
+        
+        if noise_target in ["embedding", "both"]:
+            # Inject noise into perturbation embeddings (B)
+            if B_train is not None:
+                B_train = inject_noise(B_train, noise_type=noise_type, noise_level=noise_level, seed=noise_seed)
+            if B_test is not None:
+                B_test = inject_noise(B_test, noise_type=noise_type, noise_level=noise_level, seed=noise_seed + 1)
+        
+        if noise_target in ["expression", "both"]:
+            # Inject noise into expression data (Y)
+            Y_train_filtered_np = inject_noise(Y_train_filtered_np, noise_type=noise_type, noise_level=noise_level, seed=noise_seed + 2)
     
     # Center Y
     center = Y_train_filtered_np.mean(axis=1, keepdims=True)  # (genes, 1)
@@ -409,7 +444,7 @@ def evaluate_lsft(
         for top_pct in top_pcts:
             # Filter training perturbations
             filtered_train_names, selected_similarities = filter_training_perturbations(
-                similarities, train_pert_names, top_pct=top_pct
+                similarities, train_pert_names, top_pct=top_pct, k=None
             )
             
             if len(filtered_train_names) == 0:

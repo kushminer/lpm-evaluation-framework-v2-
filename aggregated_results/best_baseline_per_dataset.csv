@@ -1,0 +1,10 @@
+dataset,analysis_type,best_baseline,pearson_r
+adamson,single_cell,lpm_selftrained,0.3959725757746279
+k562,single_cell,lpm_gearsPertEmb,0.0861011643550092
+rpe1,single_cell,lpm_gearsPertEmb,0.2031208699175883
+adamson,pseudobulk_logo,lpm_selftrained,0.882
+k562,pseudobulk_logo,lpm_selftrained,0.632
+rpe1,pseudobulk_logo,lpm_selftrained,0.804
+adamson,pseudobulk_baseline,lpm_selftrained,0.9465
+k562,pseudobulk_baseline,lpm_selftrained,0.9465
+rpe1,pseudobulk_baseline,lpm_selftrained,0.9465

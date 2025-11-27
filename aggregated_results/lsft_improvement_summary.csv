@@ -1,0 +1,7 @@
+dataset,baseline,mean_delta_r,max_delta_r,mean_baseline_r,mean_lsft_r
+adamson,lpm_gearsPertEmb,0.00292,0.00292,0.395973,0.398892
+adamson,lpm_randomGeneEmb,0.17856,0.17856,0.205048,0.383608
+adamson,lpm_scFoundationGeneEmb,0.124185,0.124185,0.256927,0.381112
+adamson,lpm_scgptGeneEmb,0.077043,0.077043,0.311623,0.388666
+adamson,lpm_selftrained,0.00292,0.00292,0.395973,0.398892
+adamson,lpm_randomPertEmb,-0.036109,-0.036109,0.194514,0.158405

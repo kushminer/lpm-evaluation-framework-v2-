@@ -8,6 +8,36 @@ Each notebook is self-contained with inline code, clear explanations of domain c
 
 ## Tutorials
 
+### 0. Understanding Y = A × K × B (Foundation Tutorial)
+**File:** `tutorial_y_akb_formula.ipynb`
+
+**Topics:**
+- Deep dive into the linear model formula: **Y = A × K × B**
+- **Y (Expression Changes)**: Origin, processing steps, final form
+  - From scRNA-seq data → pseudobulk → change from control
+  - Shape: genes × perturbations
+- **A (Gene Embeddings)**: Origin, processing steps, final form
+  - PCA on training data (or pre-trained models)
+  - Shape: genes × d
+- **B (Perturbation Embeddings)**: Origin, processing steps, final form
+  - PCA on training data (or pre-trained models)
+  - Shape: d × perturbations
+- **K (Interaction Matrix)**: Origin, processing steps, final form
+  - Learned via ridge regression
+  - Shape: d × d
+- **Matrix Multiplication**: Step-by-step walkthrough of Y = A × K × B
+- **Predictions**: How to predict on new perturbations
+
+**Key Concepts:**
+- Matrix factorization for dimensionality reduction
+- PCA for embedding construction
+- Ridge regression for learning interactions
+- Transfer learning with embeddings
+
+**This tutorial is recommended as a foundation before Goal 1-5!**
+
+---
+
 ### 1. Goal 1: Investigate Cosine Similarity
 **File:** `tutorial_goal_1_similarity.ipynb`
 
@@ -124,10 +154,13 @@ The Adamson dataset is the smallest and fastest to process, making it ideal for 
 
 We recommend following the tutorials in order:
 
+0. **[Understanding Y = A × K × B](tutorial_y_akb_formula.ipynb)** - **START HERE!** Deep dive into the formula and build intuition for each variable
 1. **Goal 1** - Understand similarity concepts and embeddings
 2. **Goal 2** - Learn the core linear model and baseline implementation
 3. **Goal 3** - Explore advanced prediction strategies (LSFT and LOGO)
 4. **Goal 4** - Analyze results statistically across datasets
 5. **Goal 5** - Validate reproducibility and parity
+
+**Note:** The Y = A × K × B tutorial is especially recommended for new students to build foundational intuition before diving into the goal-specific tutorials.
 
 Each tutorial builds on concepts from previous ones, providing a comprehensive learning experience.

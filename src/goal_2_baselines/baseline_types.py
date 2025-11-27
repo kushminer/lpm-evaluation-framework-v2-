@@ -100,7 +100,7 @@ def get_baseline_config(baseline_type: BaselineType, **kwargs) -> BaselineConfig
             gene_embedding_source="training_data",
             pert_embedding_source="gears",  # Will use embedding loader
             pert_embedding_args={
-                "source_csv": "../paper/benchmark/data/gears_pert_data/go_essential_all/go_essential_all.csv",
+                "source_csv": "../linear_perturbation_prediction-Paper/paper/benchmark/data/gears_pert_data/go_essential_all/go_essential_all.csv",
             },
             **defaults,
         ),
