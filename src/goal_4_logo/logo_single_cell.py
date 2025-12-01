@@ -264,9 +264,9 @@ def run_logo_single_cell(
             if config.pert_embedding_source == "training_data":
                 # Use cell-level PCA (self-trained baseline)
                 LOGGER.debug(f"Using cell-level PCA for {baseline_type.value}")
-                pca = PCA(n_components=pca_dim, random_state=seed)
-                B_train = pca.fit_transform(Y_train_np.T).T
-                B_test = pca.transform(Y_test_np.T).T
+            pca = PCA(n_components=pca_dim, random_state=seed)
+            B_train = pca.fit_transform(Y_train_np.T).T
+            B_test = pca.transform(Y_test_np.T).T
             else:
                 # Use perturbation-level embeddings mapped to cells
                 LOGGER.debug(f"Using perturbation embeddings ({config.pert_embedding_source}) for {baseline_type.value}")

@@ -107,23 +107,51 @@ LSFT now emits standardized per-perturbation files (JSONL/Parquet) with:
 ## Repository Structure
 
 ```
-evaluation_framework_v2/
-├── src/
-│   ├── goal_1_similarity/   # Goal 1: Cosine similarity (unchanged)
-│   ├── goal_2_baselines/    # Goal 2: Baseline reproduction (unchanged)
+lpm-evaluation-framework-v2/
+├── README.md                # This file
+├── requirements.txt         # Python dependencies
+├── pytest.ini              # Test configuration
+├── CHANGELOG.md            # Version history (in docs/)
+│
+├── src/                    # Source code
+│   ├── goal_1_similarity/   # Goal 1: Cosine similarity
+│   ├── goal_2_baselines/    # Goal 2: Baseline reproduction
 │   ├── goal_3_prediction/   # Goal 3: LSFT + LOGO (enhanced with resampling)
-│   ├── goal_4_analysis/     # Goal 4: Statistical analysis (enhanced)
-│   ├── goal_5_validation/   # Goal 5: Parity validation (unchanged)
-│   ├── shared/              # Shared utilities (unchanged)
-│   └── stats/               # NEW: Resampling utilities
+│   ├── goal_4_logo/         # Goal 4: LOGO evaluation
+│   ├── shared/              # Shared utilities
+│   └── stats/               # Resampling utilities
 │       ├── bootstrapping.py # Bootstrap CI functions
 │       └── permutation.py   # Permutation test functions
-├── configs/                 # Dataset configurations (unchanged)
-├── data/                    # Data files (unchanged)
-├── docs/                    # Documentation (enhanced)
-│   └── resampling.md        # NEW: Resampling documentation
-├── tests/                   # Unit tests (enhanced)
-└── results/                 # Generated results
+│
+├── scripts/                # Execution and analysis scripts
+│   ├── execution/          # Main execution scripts (run_*.sh, run_*.py)
+│   ├── analysis/           # Analysis & visualization scripts (generate_*.py, create_*.py)
+│   ├── utilities/          # Utility scripts (fix_*.py, validate_*.py)
+│   └── monitoring/         # Monitoring scripts (monitor_*.sh)
+│
+├── docs/                   # Documentation
+│   ├── methodology/        # Methodology documentation
+│   ├── analysis/           # Analysis documentation
+│   ├── publication/        # Publication-specific documentation
+│   └── status/             # Status and completion reports
+│       ├── completion/     # Completion reports
+│       ├── status/         # Status updates
+│       └── fixes/          # Fix verification reports
+│
+├── archive/                # Development artifacts
+│   ├── logs/               # Execution logs
+│   ├── status_reports/     # Old status reports
+│   └── development/        # Development notes & plans
+│
+├── configs/                # Dataset configurations
+├── data/                   # Data files
+├── tests/                  # Unit tests
+├── tutorials/              # Tutorial notebooks
+├── results/                # Generated results
+├── publication_package/    # Publication materials
+├── poster/                 # Poster figures
+├── audits/                 # Audit reports
+└── skeletons_and_fact_sheets/ # Data skeletons
 ```
 
 ## Migration from v1
@@ -136,11 +164,19 @@ If you have results from v1:
 
 ## Documentation
 
-- **Resampling Guide**: `docs/resampling.md` - How to use resampling features
-- **LSFT Documentation**: `docs/goal_3_prediction/` - LSFT implementation details
+### Core Documentation
+- **Methodology**: `docs/methodology/` - Pseudobulk, single-cell, LSFT, LOGO, embeddings, validation
+- **Analysis**: `docs/analysis/` - Single-cell baselines, LSFT, LOGO, GEARS comparisons, cross-resolution
+- **Publication**: `docs/publication/` - Publication-specific documentation and indices
 - **API Reference**: See docstrings in `src/stats/` modules
-- **Methodology Docs**: `methodology/README.md` - Pseudobulk, single-cell, LSFT, LOGO, embeddings, validation
-- **Analysis Docs**: `analysis_docs/README.md` - Single-cell baselines, LSFT, LOGO, GEARS comparisons, cross-resolution
+- **Changelog**: `docs/CHANGELOG.md` - Version history
+
+### Quick Navigation
+- **Execution Scripts**: `scripts/execution/` - Run experiments and analyses
+- **Analysis Scripts**: `scripts/analysis/` - Generate figures and reports
+- **Tutorials**: `tutorials/` - Step-by-step guides (e.g., `tutorial_y_akb_formula.ipynb`)
+- **Results**: `results/` - Generated evaluation results
+- **Poster Figures**: `poster/` - Publication-ready figures
 
 ## Testing
 
@@ -162,7 +198,7 @@ If using this resampling-enabled version, cite:
 
 ## Changelog
 
-See `CHANGELOG.md` for detailed version history and Sprint 11 enhancements.
+See `docs/CHANGELOG.md` for detailed version history and Sprint 11 enhancements.
 
 ---
 

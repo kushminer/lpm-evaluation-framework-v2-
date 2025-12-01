@@ -155,6 +155,10 @@ def create_grouped_bar_plot():
     fig.legend(handles, labels, loc='upper center', ncol=6, fontsize=10, 
                bbox_to_anchor=(0.5, 1.02), frameon=False)
     
+    # Add overall title
+    fig.suptitle('Baseline Performance Comparison: Pseudobulk vs Single-Cell', 
+                 fontsize=16, fontweight='bold', y=0.98)
+    
     plt.tight_layout(rect=[0, 0, 1, 0.95])
     
     return fig
@@ -212,7 +216,11 @@ def create_horizontal_bar_plot():
     for ax in axes[1, :]:
         ax.set_xlabel('Pearson r', fontsize=11, fontweight='bold')
     
-    plt.tight_layout()
+    # Add overall title
+    fig.suptitle('Baseline Performance Comparison by Dataset and Resolution', 
+                 fontsize=16, fontweight='bold', y=0.98)
+    
+    plt.tight_layout(rect=[0, 0, 1, 0.97])
     return fig
 
 
@@ -276,6 +284,10 @@ def create_summary_figure():
                    va='center', fontsize=8)
     
     ax_sc3.set_xlabel('Pearson r', fontsize=11, fontweight='bold')
+    
+    # Add overall title
+    fig.suptitle('Baseline Performance: Pseudobulk Overview and Single-Cell Details', 
+                 fontsize=16, fontweight='bold', y=0.98)
     
     return fig
 
