@@ -77,7 +77,9 @@ def compute_pseudobulk_expression_changes(
     if ctrl_mask.sum() == 0:
         raise ValueError("No control condition found in data")
     
-    baseline = np.asarray(adata.X[ctrl_mask].mean(axis=0)).ravel()
+    # Convert Series to numpy array for sparse matrix indexing
+    ctrl_mask_array = ctrl_mask.values
+    baseline = np.asarray(adata.X[ctrl_mask_array].mean(axis=0)).ravel()
     
     # Pseudobulk by condition
     unique_conditions = adata.obs["clean_condition"].unique()
@@ -91,7 +93,9 @@ def compute_pseudobulk_expression_changes(
             continue
         
         # Average expression within condition
-        cond_expr = adata.X[cond_mask]
+        # Convert Series to numpy array for sparse matrix indexing
+        cond_mask_array = cond_mask.values
+        cond_expr = adata.X[cond_mask_array]
         if hasattr(cond_expr, "toarray"):
             cond_expr = cond_expr.toarray()
         mean_expr = np.asarray(cond_expr.mean(axis=0)).ravel()
